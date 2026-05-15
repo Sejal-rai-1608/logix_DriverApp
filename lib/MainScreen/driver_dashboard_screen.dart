@@ -75,45 +75,8 @@ class DriverDashboardScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar:
-          DriverBottomNav(
+          const DriverBottomNav(
         currentIndex: 0,
-
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              break;
-
-            case 1:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      AvailableTripsScreen(),
-                ),
-              );
-              break;
-
-            case 2:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      const EarningsScreen(),
-                ),
-              );
-              break;
-
-            case 3:
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      const ProfileScreen(),
-                ),
-              );
-              break;
-          }
-        },
       ),
     );
   }

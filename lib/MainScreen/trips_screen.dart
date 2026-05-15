@@ -5,9 +5,7 @@ import '../models/trip_data.dart';
 import '../theme/app_colors.dart';
 import '../widget/driver_bottom_nav.dart';
 import '../Trip/trip_details_screen.dart';
-import 'driver_dashboard_screen.dart';
-import 'earnings_screen.dart';
-import 'profile_screen.dart';
+
 
 class AvailableTripsScreen extends StatefulWidget {
   const AvailableTripsScreen({super.key});
@@ -63,45 +61,12 @@ class _AvailableTripsScreenState extends State<AvailableTripsScreen> {
         ),
       ),
 
-      bottomNavigationBar: DriverBottomNav(
+      bottomNavigationBar: const DriverBottomNav(
         currentIndex: 1,
-
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const DriverDashboardScreen(),
-                ),
-              );
-
-              break;
-
-            case 1:
-              break;
-
-            case 2:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const EarningsScreen()),
-              );
-
-              break;
-
-            case 3:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const ProfileScreen()),
-              );
-
-              break;
-          }
-        },
       ),
     );
   }
-
+  
   Widget header() {
     return Row(
       children: [

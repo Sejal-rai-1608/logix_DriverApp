@@ -300,7 +300,7 @@ class _DriverUnderReviewScreenState
       child: Center(
         child: Image.asset(
           "assets/screen/driver_verification.png",
-          fit: BoxFit.contain,
+          fit:BoxFit.contain,
         ),
       ),
     );
