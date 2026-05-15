@@ -1,3 +1,4 @@
+import 'package:drivaer_logixapp/profilpage/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,6 +7,8 @@ import '../widget/driver_bottom_nav.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+  
+  GestureTapCallback? get onTap => null;
 
   @override
   Widget build(BuildContext context) {
@@ -223,13 +226,21 @@ class ProfileScreen extends StatelessWidget {
                     ),
 
                     divider(),
-
+                    
                     menuTile(
                       context,
-                      icon:
-                          Icons.settings_outlined,
-                      title:
-                          "Settings",
+                      icon: Icons.settings_outlined,
+                      title: "Settings",
+
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                const SettingsScreen(),
+                          ),
+                        );
+                      },
                     ),
 
                     divider(),
@@ -268,29 +279,33 @@ class ProfileScreen extends StatelessWidget {
     BuildContext context, {
     required IconData icon,
     required String title,
+    VoidCallback? onTap,
   }) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
 
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("$title clicked"),
-          ),
-        );
-      },
+      onTap: onTap ??
+          () {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(
+              SnackBar(
+                content:
+                    Text("$title clicked"),
+              ),
+            );
+          },
 
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 18,
-          vertical: 14, // reduced from 22
+          vertical: 14,
         ),
 
         child: Row(
           children: [
 
             Container(
-              width: 54, // reduced from 70
+              width: 54,
               height: 54,
 
               decoration: BoxDecoration(
@@ -301,8 +316,9 @@ class ProfileScreen extends StatelessWidget {
 
               child: Icon(
                 icon,
-                color: const Color(0xffF5B400),
-                size: 28, // reduced from 34
+                color:
+                    const Color(0xffF5B400),
+                size: 28,
               ),
             ),
 
@@ -311,18 +327,21 @@ class ProfileScreen extends StatelessWidget {
             Expanded(
               child: Text(
                 title,
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15, // reduced from 18
+                style:
+                    GoogleFonts.poppins(
+                  fontWeight:
+                      FontWeight.w600,
+                  fontSize: 15,
                 ),
               ),
             ),
 
             Icon(
               Icons.chevron_right,
-              color: Colors.grey.shade400,
-              size: 28, // reduced from 40
-            )
+              color:
+                  Colors.grey.shade400,
+              size: 28,
+            ),
           ],
         ),
       ),
