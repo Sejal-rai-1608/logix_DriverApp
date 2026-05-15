@@ -6,6 +6,7 @@
 import 'package:drivaer_logixapp/Login/DriverResetPasswordScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:drivaer_logixapp/Login/profile_setup_screen.dart';
 
 
 class DriverVerifyScreen extends StatelessWidget {
@@ -87,17 +88,16 @@ class DriverVerifyScreen extends StatelessWidget {
               button(
                 title: "Verify",
 
-                onTap: () {
+                onTap:(){
 
                   Navigator.push(
-                    context,
+                  context,
+                  MaterialPageRoute(
+                  builder:(_)=>
+                  const DriverProfileSetupScreen()
+                  ));
 
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const DriverResetPasswordScreen(),
-                    ),
-                  );
-                },
+                  },
               ),
 
               const SizedBox(height: 30),

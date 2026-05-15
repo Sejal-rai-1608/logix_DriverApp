@@ -5,6 +5,7 @@
 import 'package:drivaer_logixapp/onboardingScreen/DriverOnboardingOneScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:drivaer_logixapp/Login/profile_setup_screen.dart';
 
 void main() {
   runApp(const MyApp());

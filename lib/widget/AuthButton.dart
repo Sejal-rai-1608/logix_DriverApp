@@ -15,6 +15,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+
       child: Container(
         height: 60,
         width: double.infinity,
@@ -31,18 +32,20 @@ class AuthButton extends StatelessWidget {
 
           boxShadow: [
             BoxShadow(
-              color: const Color(0xffF7B500)
-                  .withOpacity(0.35),
+              color: const Color(
+                0xffF7B500,
+              ).withOpacity(.25),
 
-              blurRadius: 18,
-              offset: const Offset(0, 8),
-            ),
+              blurRadius: 15,
+              offset: const Offset(0,8),
+            )
           ],
         ),
 
         child: Center(
           child: Text(
             title,
+
             style: GoogleFonts.poppins(
               fontSize: 18,
               fontWeight: FontWeight.w700,
