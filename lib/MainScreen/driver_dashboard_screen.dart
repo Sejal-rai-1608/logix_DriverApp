@@ -5,9 +5,6 @@ import '../models/trip_data.dart';
 import '../theme/app_colors.dart';
 import '../widget/driver_bottom_nav.dart';
 
-import 'earnings_screen.dart';
-import 'profile_screen.dart';
-import 'trips_screen.dart';
 
 class DriverDashboardScreen extends StatelessWidget {
   const DriverDashboardScreen({super.key});

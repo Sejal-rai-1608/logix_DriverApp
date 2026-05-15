@@ -75,7 +75,7 @@ class TripCompletedScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:
-                                BorderRadius.circular(20),
+                                BorderRadius.circular(12),
 
                             boxShadow:[
                               BoxShadow(

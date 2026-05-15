@@ -13,7 +13,7 @@ class DriverBottomNav extends StatelessWidget {
 
   const DriverBottomNav({
     super.key,
-    required this.currentIndex,
+    required this.currentIndex, gestureDetector,
   });
 
   @override
