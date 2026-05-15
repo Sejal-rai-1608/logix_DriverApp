@@ -6,6 +6,7 @@
 import 'package:drivaer_logixapp/onboardingScreen/DriverOnboardingThreeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:drivaer_logixapp/theme/app_colors.dart';
 
 class DriverOnboardingTwoScreen extends StatelessWidget {
   const DriverOnboardingTwoScreen({super.key});
@@ -13,7 +14,7 @@ class DriverOnboardingTwoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFFFDF6),
+      backgroundColor: AppColors.bg,
 
       body: SafeArea(
         child: Padding(

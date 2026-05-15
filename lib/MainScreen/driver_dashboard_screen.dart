@@ -11,20 +11,25 @@ import 'trips_screen.dart';
 
 class DriverDashboardScreen extends StatelessWidget {
   const DriverDashboardScreen({super.key});
+   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 240, 184),
-
+      backgroundColor: AppColors.bg,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 16,
+          ),
 
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
 
             children: [
+
               const SizedBox(height: 30),
 
               topSection(),
@@ -51,6 +56,7 @@ class DriverDashboardScreen extends StatelessWidget {
                 itemCount: trips.length,
 
                 itemBuilder: (context, index) {
+
                   final trip = trips[index];
 
                   return tripCard(
@@ -61,12 +67,15 @@ class DriverDashboardScreen extends StatelessWidget {
                     time: trip["time"]?.toString() ?? "",
                   );
                 },
-              ),
+              )
+
+             
             ],
           ),
         ),
       ),
-      bottomNavigationBar: DriverBottomNav(
+      bottomNavigationBar:
+          DriverBottomNav(
         currentIndex: 0,
 
         onTap: (index) {
@@ -77,21 +86,30 @@ class DriverDashboardScreen extends StatelessWidget {
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AvailableTripsScreen()),
+                MaterialPageRoute(
+                  builder: (context) =>
+                      AvailableTripsScreen(),
+                ),
               );
               break;
 
             case 2:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const EarningsScreen()),
+                MaterialPageRoute(
+                  builder: (_) =>
+                      const EarningsScreen(),
+                ),
               );
               break;
 
             case 3:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                MaterialPageRoute(
+                  builder: (_) =>
+                      const ProfileScreen(),
+                ),
               );
               break;
           }
@@ -103,14 +121,20 @@ class DriverDashboardScreen extends StatelessWidget {
   Widget topSection() {
     return Row(
       children: [
+
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
 
             children: [
+
               Text(
                 "Good Morning 🌞",
-                style: GoogleFonts.poppins(color: Colors.grey, fontSize: 18),
+                style: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
               ),
 
               const SizedBox(height: 4),
@@ -119,7 +143,8 @@ class DriverDashboardScreen extends StatelessWidget {
                 "John Driver 👋",
                 style: GoogleFonts.poppins(
                   fontSize: 24,
-                  fontWeight: FontWeight.w700,
+                  fontWeight:
+                      FontWeight.w700,
                 ),
               ),
             ],
@@ -128,38 +153,53 @@ class DriverDashboardScreen extends StatelessWidget {
 
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.grey.shade300,
+          backgroundColor:
+              Colors.grey.shade300,
 
-          child: const Icon(Icons.person, color: Colors.deepPurple, size: 32),
-        ),
+          child: const Icon(
+            Icons.person,
+            color: Colors.deepPurple,
+            size: 32,
+          ),
+        )
       ],
     );
   }
 
   Widget overviewCard() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding:
+          const EdgeInsets.all(20),
 
       decoration: BoxDecoration(
         color: Colors.white,
 
-        borderRadius: BorderRadius.circular(26),
+        borderRadius:
+            BorderRadius.circular(26),
 
         boxShadow: [
-          BoxShadow(blurRadius: 15, color: Colors.black.withOpacity(.03)),
+          BoxShadow(
+            blurRadius: 15,
+            color: Colors.black
+                .withOpacity(.03),
+          )
         ],
       ),
 
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
 
         children: [
+
           Text(
             "Today's Overview",
 
-            style: GoogleFonts.poppins(
+            style:
+                GoogleFonts.poppins(
               fontSize: 18,
-              fontWeight: FontWeight.w700,
+              fontWeight:
+                  FontWeight.w700,
             ),
           ),
 
@@ -167,36 +207,52 @@ class DriverDashboardScreen extends StatelessWidget {
 
           Row(
             children: [
-              overviewItem("4", "Trips"),
+
+              overviewItem(
+                  "4",
+                  "Trips"),
 
               divider(),
 
-              overviewItem("320", "KM"),
+              overviewItem(
+                  "320",
+                  "KM"),
 
               divider(),
 
-              overviewItem("₹2450", "Earn"),
+              overviewItem(
+                  "₹2450",
+                  "Earn"),
             ],
-          ),
+          )
         ],
       ),
     );
   }
 
   Widget divider() {
-    return Container(width: 1, height: 60, color: Colors.grey.shade300);
+    return Container(
+      width: 1,
+      height: 60,
+      color: Colors.grey.shade300,
+    );
   }
 
-  Widget overviewItem(String value, String title) {
+  Widget overviewItem(
+      String value,
+      String title) {
     return Expanded(
       child: Column(
         children: [
+
           Text(
             value,
 
-            style: GoogleFonts.poppins(
+            style:
+                GoogleFonts.poppins(
               fontSize: 22,
-              fontWeight: FontWeight.w700,
+              fontWeight:
+                  FontWeight.w700,
             ),
           ),
 
@@ -205,9 +261,15 @@ class DriverDashboardScreen extends StatelessWidget {
           Text(
             title,
 
-            textAlign: TextAlign.center,
+            textAlign:
+                TextAlign.center,
 
-            style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey),
+            style:
+                GoogleFonts.poppins(
+              fontSize: 13,
+              color:
+                  Colors.grey,
+            ),
           ),
         ],
       ),
@@ -232,14 +294,19 @@ class DriverDashboardScreen extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
-            BoxShadow(blurRadius: 12, color: Colors.black.withOpacity(.03)),
+            BoxShadow(
+              blurRadius: 12,
+              color: Colors.black.withOpacity(.03),
+            )
           ],
         ),
 
         child: Column(
           children: [
+
             Row(
               children: [
+
                 const Icon(
                   Icons.location_on,
                   color: AppColors.yellow2,
@@ -274,21 +341,40 @@ class DriverDashboardScreen extends StatelessWidget {
 
             Row(
               children: [
-                Icon(Icons.route, color: Colors.grey.shade600, size: 16),
+
+                Icon(
+                  Icons.route,
+                  color: Colors.grey.shade600,
+                  size: 16,
+                ),
 
                 const SizedBox(width: 6),
 
-                Text(distance, style: GoogleFonts.poppins(fontSize: 13)),
+                Text(
+                  distance,
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                  ),
+                ),
 
                 const Spacer(),
 
-                Icon(Icons.access_time, color: Colors.grey.shade600, size: 16),
+                Icon(
+                  Icons.access_time,
+                  color: Colors.grey.shade600,
+                  size: 16,
+                ),
 
                 const SizedBox(width: 6),
 
-                Text(time, style: GoogleFonts.poppins(fontSize: 13)),
+                Text(
+                  time,
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                  ),
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),

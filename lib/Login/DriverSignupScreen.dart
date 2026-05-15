@@ -7,6 +7,7 @@ import 'package:drivaer_logixapp/widget/AuthButton.dart';
 import 'package:drivaer_logixapp/widget/AuthTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:drivaer_logixapp/theme/app_colors.dart';
 
 import '../Login/DriverLoginScreen.dart';
 
@@ -58,7 +59,7 @@ class _DriverSignupScreenState extends State<DriverSignupScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFFFDF6),
+      backgroundColor: AppColors.bg,
 
       body: SafeArea(
         child: FadeTransition(

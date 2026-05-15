@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../theme/app_colors.dart';
-import 'DriverLoginScreen.dart';
+
 import 'package:drivaer_logixapp/MainScreen/driver_dashboard_screen.dart';
 
 class DriverUnderReviewScreen extends StatefulWidget {
@@ -48,9 +48,8 @@ class _DriverUnderReviewScreenState
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: const Color(
-        0xffFFFDF6,
-      ),
+      backgroundColor: AppColors.bg,
+      
 
       body: SafeArea(
         child: SingleChildScrollView(

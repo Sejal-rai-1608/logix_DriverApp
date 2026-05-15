@@ -5,6 +5,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:drivaer_logixapp/theme/app_colors.dart';
+
 
 class DriverResetPasswordScreen
     extends StatelessWidget {
@@ -17,8 +19,7 @@ class DriverResetPasswordScreen
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor:
-          const Color(0xffFFFDF6),
+      backgroundColor: AppColors.bg,
 
       body: SafeArea(
         child: Padding(

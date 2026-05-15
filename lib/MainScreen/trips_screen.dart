@@ -20,7 +20,7 @@ class _AvailableTripsScreenState extends State<AvailableTripsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFFFDF6),
+      backgroundColor: AppColors.bg,
 
       body: SafeArea(
         child: SingleChildScrollView(

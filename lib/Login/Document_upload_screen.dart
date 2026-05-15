@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:drivaer_logixapp/theme/app_colors.dart';
 
-import '../theme/app_colors.dart';
 import '../widget/AuthButton.dart';
 import 'package:drivaer_logixapp/Login/under_review_screen.dart';
 
@@ -165,8 +165,7 @@ class _DriverDocumentsScreenState
 
     return Scaffold(
 
-      backgroundColor:
-      const Color(0xffFFFDF6),
+      backgroundColor: AppColors.bg,
 
       body: SafeArea(
 
