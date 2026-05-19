@@ -1,11 +1,10 @@
+import 'package:drivaer_logixapp/widget/custom_bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/trip_data.dart';
 import '../theme/app_colors.dart';
-import '../widget/driver_bottom_nav.dart';
 import '../Trip/trip_details_screen.dart';
-
 
 class AvailableTripsScreen extends StatefulWidget {
   const AvailableTripsScreen({super.key});
@@ -61,12 +60,13 @@ class _AvailableTripsScreenState extends State<AvailableTripsScreen> {
         ),
       ),
 
-      bottomNavigationBar: const DriverBottomNav(
+      bottomNavigationBar: CustomBottomBar(
         currentIndex: 1,
+        onItemTapped: (index) {},
       ),
     );
   }
-  
+
   Widget header() {
     return Row(
       children: [

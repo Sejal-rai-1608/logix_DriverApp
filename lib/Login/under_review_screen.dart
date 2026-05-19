@@ -1,11 +1,8 @@
 import 'dart:async';
 
+import 'package:drivaer_logixapp/MainScreen/driver_dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../theme/app_colors.dart';
-
-import 'package:drivaer_logixapp/MainScreen/driver_dashboard_screen.dart';
 
 class DriverUnderReviewScreen extends StatefulWidget {
   const DriverUnderReviewScreen({super.key});
@@ -15,264 +12,417 @@ class DriverUnderReviewScreen extends StatefulWidget {
       _DriverUnderReviewScreenState();
 }
 
-class _DriverUnderReviewScreenState
-    extends State<DriverUnderReviewScreen> {
-
+class _DriverUnderReviewScreenState extends State<DriverUnderReviewScreen>
+    with TickerProviderStateMixin {
   bool verificationComplete = false;
+
+  late AnimationController pulseController;
 
   @override
   void initState() {
     super.initState();
 
-    /// Backend later:
-    /// pollReviewStatus();
+    pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1600),
+    )..repeat(reverse: true);
 
     fakeReviewCheck();
   }
 
   void fakeReviewCheck() {
-
-    Timer(
-      const Duration(seconds: 8),
-      () {
-
+    Timer(const Duration(seconds: 5), () {
+      if (mounted) {
         setState(() {
           verificationComplete = true;
         });
+      }
+    });
+  }
 
-      },
-    );
+  @override
+  void dispose() {
+    pulseController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: AppColors.bg,
-      
+      backgroundColor: const Color(0xffFFFBF0),
 
       body: SafeArea(
         child: SingleChildScrollView(
-
-          padding:
-          const EdgeInsets.symmetric(
-            horizontal: 22,
-            vertical: 20,
-          ),
+          physics: const BouncingScrollPhysics(),
 
           child: Column(
             children: [
+              /// TOP HEADER
+              Container(
+                width: double.infinity,
 
-              const SizedBox(height:20),
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 42),
 
-              /// LOGO
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xffFFD84D), Color(0xffF7B500)],
 
-              Row(
-                mainAxisAlignment:
-                MainAxisAlignment.center,
-
-                children: [
-
-                  const Icon(
-                    Icons.local_shipping,
-                    color:
-                    AppColors.yellow2,
-                    size:40,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
 
-                  const SizedBox(width:8),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(42),
+                    bottomRight: Radius.circular(42),
+                  ),
+                ),
 
-                  RichText(
-                    text: TextSpan(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    /// APP BAR
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                       children: [
+                        Container(
+                          width: 52,
+                          height: 52,
 
-                        TextSpan(
-                          text:"Driver",
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.20),
 
-                          style:
-                          GoogleFonts.poppins(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
 
-                            fontSize:32,
-                            color:Colors.black,
-                            fontWeight:
-                            FontWeight.w800,
+                          child: const Icon(
+                            Icons.local_shipping_rounded,
+                            color: Colors.white,
+                            size: 28,
                           ),
                         ),
 
-                        TextSpan(
-                          text:"X",
-
-                          style:
-                          GoogleFonts.poppins(
-
-                            color:
-                            AppColors.yellow2,
-
-                            fontSize:32,
-
-                            fontWeight:
-                            FontWeight.w800,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
                           ),
-                        )
 
-                      ],
-                    ),
-                  )
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.20),
 
-                ],
-              ),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
 
-              const SizedBox(height:40),
+                          child: Text(
+                            verificationComplete ? "Approved" : "In Review",
 
-              heroSection(),
-
-              const SizedBox(height:30),
-
-              Text(
-                "Your account is",
-
-                style:
-                GoogleFonts.poppins(
-                  fontWeight:
-                  FontWeight.w700,
-
-                  fontSize:34,
-                ),
-              ),
-
-              Text(
-                verificationComplete
-                    ? "approved"
-                    : "under review",
-
-                style:
-                GoogleFonts.poppins(
-                  color:
-                  AppColors.yellow2,
-
-                  fontWeight:
-                  FontWeight.w800,
-
-                  fontSize:34,
-                ),
-              ),
-
-              const SizedBox(height:20),
-
-              Text(
-                verificationComplete
-                    ? "You can now start accepting trips"
-                    : "We'll notify you once profile and documents are approved.",
-
-                textAlign:
-                TextAlign.center,
-
-                style:
-                GoogleFonts.poppins(
-                  color:
-                  Colors.grey,
-                  fontSize:16,
-                ),
-              ),
-
-              const SizedBox(height:35),
-
-              timelineCard(),
-
-              const SizedBox(height:35),
-
-              verificationComplete
-                  ? const Icon(
-                Icons.check_circle,
-                size:60,
-                color:
-                Colors.green,
-              )
-                  : const CircularProgressIndicator(
-                color:
-                AppColors.yellow2,
-              ),
-
-              const SizedBox(height:40),
-
-              GestureDetector(
-
-                onTap:(){
-
-                  Navigator.pushAndRemoveUntil(
-
-                    context,
-
-                    MaterialPageRoute(
-                      builder:(_)=>
-                      const DriverDashboardScreen(),
-                    ),
-
-                        (route)=>false,
-                  );
-
-                },
-
-                child: Container(
-
-                  width:double.infinity,
-                  height:65,
-
-                  decoration:
-                  BoxDecoration(
-
-                    gradient:
-                    const LinearGradient(
-
-                      colors:[
-
-                        Color(0xffFFD84D),
-
-                        Color(0xffF7B500)
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
 
-                    borderRadius:
-                    BorderRadius.circular(
-                        25),
-                  ),
+                    const SizedBox(height: 38),
 
-                  child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.center,
+                    Text(
+                      verificationComplete
+                          ? "You're Ready\nto Drive 🚚"
+                          : "Documents\nUnder Review",
 
+                      style: GoogleFonts.poppins(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w800,
+                        height: 1.2,
+                        color: const Color(0xff1A1A1A),
+                      ),
+                    ),
+
+                    const SizedBox(height: 14),
+
+                    Text(
+                      verificationComplete
+                          ? "Your profile has been successfully approved."
+                          : "Our team is checking your submitted documents.",
+
+                      style: GoogleFonts.poppins(
+                        color: Colors.black.withOpacity(0.65),
+                        fontSize: 15,
+                        height: 1.6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Transform.translate(
+                offset: const Offset(0, -26),
+
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                  child: Column(
                     children: [
+                      /// STATUS CARD
+                      Container(
+                        width: double.infinity,
 
-                      const Icon(
-                        Icons.login,
-                      ),
+                        padding: const EdgeInsets.all(24),
 
-                      const SizedBox(
-                        width:10,
-                      ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(32),
 
-                      Text(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
 
-                        verificationComplete
-                            ? "Start Driving"
-                            : "Back to Login",
-
-                        style:
-                        GoogleFonts.poppins(
-
-                            fontSize:20,
-
-                            fontWeight:
-                            FontWeight.w700
+                              blurRadius: 22,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
-                      )
+
+                        child: Column(
+                          children: [
+                            /// ANIMATED STATUS
+                            AnimatedBuilder(
+                              animation: pulseController,
+
+                              builder: (context, child) {
+                                return Container(
+                                  width: 140 + (pulseController.value * 10),
+
+                                  height: 140 + (pulseController.value * 10),
+
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+
+                                    color: verificationComplete
+                                        ? Colors.green.withOpacity(0.08)
+                                        : const Color(
+                                            0xffF7B500,
+                                          ).withOpacity(0.10),
+                                  ),
+
+                                  child: Center(
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+
+                                        gradient: LinearGradient(
+                                          colors: verificationComplete
+                                              ? [
+                                                  Colors.green,
+                                                  Colors.lightGreen,
+                                                ]
+                                              : [
+                                                  const Color(0xffFFD84D),
+                                                  const Color(0xffF7B500),
+                                                ],
+                                        ),
+                                      ),
+
+                                      child: Icon(
+                                        verificationComplete
+                                            ? Icons.check_rounded
+                                            : Icons.hourglass_top_rounded,
+
+                                        size: 48,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+
+                            const SizedBox(height: 28),
+
+                            Text(
+                              verificationComplete
+                                  ? "Verification Complete"
+                                  : "Verification in Progress",
+
+                              style: GoogleFonts.poppins(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w800,
+                                color: const Color(0xff1A1A1A),
+                              ),
+                            ),
+
+                            const SizedBox(height: 12),
+
+                            Text(
+                              verificationComplete
+                                  ? "Your account is fully activated."
+                                  : "This process usually takes a few hours.",
+
+                              textAlign: TextAlign.center,
+
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                color: const Color(0xff8A8A8A),
+                                height: 1.6,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 22),
+
+                      /// TIMELINE CARD
+                      Container(
+                        width: double.infinity,
+
+                        padding: const EdgeInsets.all(24),
+
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(32),
+
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.04),
+
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+
+                        child: Column(
+                          children: [
+                            _timelineItem(
+                              true,
+                              "Profile Submitted",
+                              Icons.person_rounded,
+                            ),
+
+                            _divider(),
+
+                            _timelineItem(
+                              true,
+                              "Documents Uploaded",
+                              Icons.description_rounded,
+                            ),
+
+                            _divider(),
+
+                            _timelineItem(
+                              verificationComplete,
+                              verificationComplete
+                                  ? "Approved Successfully"
+                                  : "Pending Verification",
+
+                              Icons.verified_user_rounded,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      /// INFO CARD
+                      Container(
+                        padding: const EdgeInsets.all(20),
+
+                        decoration: BoxDecoration(
+                          color: const Color(0xffFFF8E1),
+
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              color: Color(0xffF7B500),
+                            ),
+
+                            const SizedBox(width: 14),
+
+                            Expanded(
+                              child: Text(
+                                "You’ll receive a notification once verification is completed.",
+
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  color: const Color(0xff2D2D2D),
+                                  height: 1.5,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 34),
+
+                      /// BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DriverDashboardScreen(),
+                            ),
+                          );
+                        },
+
+                        child: Container(
+                          height: 64,
+                          width: double.infinity,
+
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xffFFD84D), Color(0xffF7B500)],
+                            ),
+
+                            borderRadius: BorderRadius.circular(24),
+
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(
+                                  0xffF7B500,
+                                ).withOpacity(0.30),
+
+                                blurRadius: 18,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+
+                          alignment: Alignment.center,
+
+                          child: Text(
+                            verificationComplete
+                                ? "Start Driving"
+                                : "Return to Login",
+
+                            style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xff1A1A1A),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 30),
                     ],
                   ),
                 ),
               ),
-
-              const SizedBox(height:30)
-
             ],
           ),
         ),
@@ -280,211 +430,64 @@ class _DriverUnderReviewScreenState
     );
   }
 
-  Widget heroSection() {
+  Widget _divider() {
     return Container(
-      width: 320,
-      height: 320,
+      margin: const EdgeInsets.only(left: 18, top: 12, bottom: 12),
 
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColors.yellow1.withOpacity(.08),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 25,
-            spreadRadius: 5,
-            color: AppColors.yellow2.withOpacity(.12),
-          )
-        ],
-      ),
+      height: 24,
+      width: 2,
 
-      child: Center(
-        child: Image.asset(
-          "assets/screen/driver_verification.png",
-          fit:BoxFit.contain,
-        ),
-      ),
+      color: const Color(0xffF0F0F0),
     );
   }
 
+  Widget _timelineItem(bool done, String title, IconData icon) {
+    return Row(
+      children: [
+        Container(
+          width: 38,
+          height: 38,
 
-  Widget cardIcon(
-      IconData icon){
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
 
-    return Container(
-
-      padding:
-      const EdgeInsets.all(14),
-
-      decoration:
-      BoxDecoration(
-
-        color:Colors.white,
-
-        borderRadius:
-        BorderRadius.circular(
-            20),
-
-        boxShadow:[
-
-          BoxShadow(
-              blurRadius:10,
-
-              color:Colors.black
-                  .withOpacity(.05)
-          )
-        ],
-      ),
-
-      child:Icon(
-        icon,
-
-        color:
-        AppColors.yellow2,
-      ),
-    );
-  }
-
-
-  Widget timelineCard(){
-
-    return Container(
-
-      padding:
-      const EdgeInsets.all(22),
-
-      decoration:
-      BoxDecoration(
-
-          color:
-          Colors.white,
-
-          borderRadius:
-          BorderRadius.circular(
-              30)
-      ),
-
-      child:Column(
-
-        children:[
-
-          timelineItem(
-            true,
-            "Profile Completed",
-            Icons.person,
-          ),
-
-          timelineItem(
-            true,
-            "Documents Uploaded",
-            Icons.description,
-          ),
-
-          timelineItem(
-            verificationComplete,
-            verificationComplete
-                ? "Verification Complete"
-                : "Verification in progress",
-
-            Icons.access_time,
-
-            subtitle:
-            "Our team is reviewing information",
-          )
-
-        ],
-      ),
-    );
-  }
-
-
-
-  Widget timelineItem(
-      bool done,
-      String title,
-      IconData icon,
-      {String? subtitle}) {
-
-    return Padding(
-      padding:
-      const EdgeInsets.only(
-          bottom:25),
-
-      child: Row(
-
-        children:[
-
-          CircleAvatar(
-            radius:18,
-
-            backgroundColor:
-            done
+            color: done
                 ? Colors.green
-                : AppColors.yellow2,
-
-            child:Icon(
-
-              done
-                  ? Icons.check
-                  : Icons.more_horiz,
-
-              color:
-              Colors.white,
-            ),
+                : const Color(0xffF7B500).withOpacity(0.12),
           ),
 
-          const SizedBox(width:18),
+          child: Icon(
+            done ? Icons.check_rounded : Icons.access_time_rounded,
 
-          Expanded(
-            child:Column(
+            color: done ? Colors.white : const Color(0xffF7B500),
 
-              crossAxisAlignment:
-              CrossAxisAlignment.start,
+            size: 18,
+          ),
+        ),
 
-              children:[
+        const SizedBox(width: 16),
 
-                Text(
-                  title,
+        Expanded(
+          child: Text(
+            title,
 
-                  style:
-                  GoogleFonts.poppins(
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: done ? FontWeight.w700 : FontWeight.w500,
 
-                      fontSize:18,
-
-                      fontWeight:
-                      FontWeight.w700
-                  ),
-                ),
-
-                if(subtitle!=null)
-
-                  Text(
-                    subtitle,
-
-                    style:
-                    GoogleFonts.poppins(
-                      color:
-                      Colors.grey,
-                    ),
-                  )
-              ],
+              color: done ? const Color(0xff1A1A1A) : const Color(0xff8A8A8A),
             ),
           ),
+        ),
 
-          CircleAvatar(
+        Icon(
+          icon,
 
-            backgroundColor:
-            Colors.green
-                .withOpacity(.1),
+          color: done ? Colors.green : const Color(0xff8A8A8A),
 
-            child:Icon(
-              icon,
-
-              color:
-              Colors.green,
-            ),
-          )
-        ],
-      ),
+          size: 22,
+        ),
+      ],
     );
   }
 }

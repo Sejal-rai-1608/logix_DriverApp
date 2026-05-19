@@ -9,13 +9,10 @@ class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() =>
-      _SettingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState
-    extends State<SettingsScreen> {
-
+class _SettingsScreenState extends State<SettingsScreen> {
   bool notificationOn = true;
   bool soundOn = true;
 
@@ -23,27 +20,20 @@ class _SettingsScreenState
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColors.bg,
 
       body: SafeArea(
         child: SingleChildScrollView(
-          padding:
-          const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 18,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
 
           child: Column(
             children: [
-
               /// top row
               Row(
                 children: [
-
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
 
@@ -51,25 +41,19 @@ class _SettingsScreenState
                       width: 55,
                       height: 55,
 
-                      decoration:
-                      BoxDecoration(
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(
-                            18),
+                        borderRadius: BorderRadius.circular(18),
 
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 20,
-                            color: Colors.black
-                                .withOpacity(.04),
-                          )
+                            color: Colors.black.withOpacity(.04),
+                          ),
                         ],
                       ),
 
-                      child: const Icon(
-                        Icons.arrow_back_ios_new,
-                      ),
+                      child: const Icon(Icons.arrow_back_ios_new),
                     ),
                   ),
 
@@ -77,143 +61,109 @@ class _SettingsScreenState
 
                   Text(
                     "Settings",
-                    style:
-                    GoogleFonts.poppins(
+                    style: GoogleFonts.poppins(
                       fontSize: 21,
-                      fontWeight:
-                      FontWeight.w700,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
 
                   const Spacer(),
 
-                  const SizedBox(
-                    width: 55,
-                  )
+                  const SizedBox(width: 55),
                 ],
               ),
 
               const SizedBox(height: 20),
 
               /// background decorative
-
               Stack(
                 children: [
-
                   Positioned(
-                    left:-10,
-                    top:20,
+                    left: -10,
+                    top: 20,
 
-                    child:Opacity(
+                    child: Opacity(
                       opacity: .10,
 
                       child: Image.asset(
-                        "assets/logo/truck.png",
-                        width:120,
+                        "assets/screen/signup.png",
+                        width: 120,
                       ),
                     ),
                   ),
 
                   Positioned(
-                    right:-10,
-                    top:0,
+                    right: -10,
+                    top: 0,
 
-                    child:Opacity(
-                      opacity:.08,
+                    child: Opacity(
+                      opacity: .08,
 
                       child: Icon(
                         Icons.inventory_2,
-                        size:110,
+                        size: 110,
                         color: Colors.orange,
                       ),
                     ),
                   ),
 
                   Container(
-                    margin:
-                    const EdgeInsets.only(
-                        top:45),
+                    margin: const EdgeInsets.only(top: 45),
 
-                    padding:
-                    const EdgeInsets.all(
-                        14),
+                    padding: const EdgeInsets.all(14),
 
-                    decoration:
-                    BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Colors.white,
 
-                      borderRadius:
-                      BorderRadius.circular(
-                          32),
+                      borderRadius: BorderRadius.circular(32),
 
                       boxShadow: [
-
                         BoxShadow(
-                          blurRadius:30,
+                          blurRadius: 30,
 
-                          color:
-                          Colors.black
-                              .withOpacity(
-                              .05),
-                        )
+                          color: Colors.black.withOpacity(.05),
+                        ),
                       ],
                     ),
 
                     child: Column(
                       children: [
-
                         settingsTile(
-                          icon:
-                          Icons.notifications_none,
+                          icon: Icons.notifications_none,
 
-                          title:
-                          "Notifications",
+                          title: "Notifications",
 
-                            trailing:
-                            Transform.scale(
-                              scale: .85,
-                              child:Switch(
-                                value:
-                                notificationOn,
+                          trailing: Transform.scale(
+                            scale: .85,
+                            child: Switch(
+                              value: notificationOn,
 
-                                activeColor:
-                                Colors.green,
+                              activeColor: Colors.green,
 
-                                onChanged:
-                                    (value){
-
-                                  setState(() {
-
-                                    notificationOn=
-                                        value;
-                                  });
-                                },
-                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  notificationOn = value;
+                                });
+                              },
                             ),
                           ),
+                        ),
 
-                          divider(),
+                        divider(),
 
                         settingsTile(
-                          icon:
-                          Icons.volume_up_outlined,
+                          icon: Icons.volume_up_outlined,
 
-                          title:
-                          "Sound",
+                          title: "Sound",
 
-                          trailing:
-                          Switch(
-                            value:
-                            soundOn,
+                          trailing: Switch(
+                            value: soundOn,
 
-                            activeColor:
-                            Colors.green,
+                            activeColor: Colors.green,
 
-                            onChanged:
-                                (value){
-
+                            onChanged: (value) {
                               setState(() {
-                                soundOn=value;
+                                soundOn = value;
                               });
                             },
                           ),
@@ -222,41 +172,27 @@ class _SettingsScreenState
                         divider(),
 
                         settingsTile(
-                          icon:
-                          Icons.language,
+                          icon: Icons.language,
 
-                          title:
-                          "Language",
+                          title: "Language",
 
-                          trailing:
-                          Row(
-                            mainAxisSize:
-                            MainAxisSize.min,
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
 
                             children: [
-
                               Text(
                                 language,
 
-                                style:
-                                GoogleFonts
-                                    .poppins(
-                                  color:
-                                  Colors.grey,
-                                ),
+                                style: GoogleFonts.poppins(color: Colors.grey),
                               ),
 
-                              const SizedBox(
-                                  width:8),
+                              const SizedBox(width: 8),
 
-                              const Icon(
-                                Icons
-                                    .chevron_right,
-                              )
+                              const Icon(Icons.chevron_right),
                             ],
                           ),
 
-                          onTap: (){
+                          onTap: () {
                             selectLanguage();
                           },
                         ),
@@ -264,65 +200,54 @@ class _SettingsScreenState
                         divider(),
 
                         settingsTile(
-                          icon:
-                          Icons.privacy_tip_outlined,
+                          icon: Icons.privacy_tip_outlined,
 
-                          title:
-                          "Privacy Policy",
+                          title: "Privacy Policy",
 
-                          onTap: (){
-                            showSnack(
-                                "Privacy Policy");
+                          onTap: () {
+                            showSnack("Privacy Policy");
                           },
                         ),
 
                         divider(),
 
                         settingsTile(
-                          icon:
-                          Icons.description_outlined,
+                          icon: Icons.description_outlined,
 
-                          title:
-                          "Terms & Conditions",
+                          title: "Terms & Conditions",
 
-                          onTap: (){
-                            showSnack(
-                                "Terms");
+                          onTap: () {
+                            showSnack("Terms");
                           },
                         ),
 
                         divider(),
 
                         settingsTile(
-                          icon:
-                          Icons.logout,
+                          icon: Icons.logout,
 
-                          iconColor:
-                          Colors.red,
+                          iconColor: Colors.red,
 
-                          title:
-                          "Logout",
+                          title: "Logout",
 
-                          titleColor:
-                          Colors.red,
+                          titleColor: Colors.red,
 
-                          onTap: (){
-
+                          onTap: () {
                             Navigator.push(
                               context,
 
                               MaterialPageRoute(
-                                builder:(_)=>
-                                const LogoutConfirmationScreen(),
+                                builder: (_) =>
+                                    const LogoutConfirmationScreen(),
                               ),
                             );
                           },
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -332,58 +257,42 @@ class _SettingsScreenState
 
   Widget divider() {
     return Padding(
-      padding:
-      const EdgeInsets.symmetric(
-          horizontal:10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
 
-      child: Divider(
-        color:
-        Colors.grey.shade200,
-      ),
+      child: Divider(color: Colors.grey.shade200),
     );
   }
 
   Widget settingsTile({
-
     required IconData icon,
     required String title,
 
-    Color iconColor =
-        const Color(0xffF4B400),
+    Color iconColor = const Color(0xffF4B400),
 
-    Color titleColor =
-        Colors.black,
+    Color titleColor = Colors.black,
 
     Widget? trailing,
 
     VoidCallback? onTap,
   }) {
-
     return InkWell(
       onTap: onTap,
 
       child: Padding(
-        padding:
-        const EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 12, // reduced
         ),
 
         child: Row(
           children: [
-
             Container(
               width: 48, // reduced
               height: 48,
 
-              decoration:
-              BoxDecoration(
-                color:
-                const Color(
-                    0xffFFF8E7),
+              decoration: BoxDecoration(
+                color: const Color(0xffFFF8E7),
 
-                borderRadius:
-                BorderRadius.circular(
-                    14),
+                borderRadius: BorderRadius.circular(14),
               ),
 
               child: Icon(
@@ -399,110 +308,78 @@ class _SettingsScreenState
               child: Text(
                 title,
 
-                style:
-                GoogleFonts.poppins(
-                  fontWeight:
-                  FontWeight.w600,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
 
                   fontSize: 15, // reduced
 
-                  color:
-                  titleColor,
+                  color: titleColor,
                 ),
               ),
             ),
 
             trailing ??
-
                 Icon(
                   Icons.chevron_right,
                   size: 24, // reduced
 
-                  color:
-                  Colors.grey.shade400,
-                )
+                  color: Colors.grey.shade400,
+                ),
           ],
         ),
       ),
     );
   }
 
-  void showSnack(String text){
-
+  void showSnack(String text) {
     ScaffoldMessenger.of(
-        context)
-        .showSnackBar(
-
-      SnackBar(
-        content:
-        Text("$text clicked"),
-      ),
-    );
+      context,
+    ).showSnackBar(SnackBar(content: Text("$text clicked")));
   }
 
-  void selectLanguage(){
-
+  void selectLanguage() {
     showModalBottomSheet(
-
       context: context,
 
-      builder: (_){
-
+      builder: (_) {
         return SafeArea(
           child: Column(
-            mainAxisSize:
-            MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
 
             children: [
-
               ListTile(
-                title:
-                const Text(
-                    "English"),
+                title: const Text("English"),
 
-                onTap:(){
-
+                onTap: () {
                   setState(() {
-                    language=
-                    "English";
+                    language = "English";
                   });
 
-                  Navigator.pop(
-                      context);
+                  Navigator.pop(context);
                 },
               ),
 
               ListTile(
-                title:
-                const Text(
-                    "Hindi"),
+                title: const Text("Hindi"),
 
-                onTap:(){
-
+                onTap: () {
                   setState(() {
-                    language=
-                    "Hindi";
+                    language = "Hindi";
                   });
 
-                  Navigator.pop(
-                      context);
+                  Navigator.pop(context);
                 },
               ),
 
               ListTile(
-                title:
-                const Text(
-                    "Marathi"),
+                title: const Text("Marathi"),
 
-                onTap:(){
-
+                onTap: () {
                   setState(() {
-                    language=
-                    "Marathi";
+                    language = "Marathi";
                   });
 
-                  Navigator.pop(
-                      context);
+                  Navigator.pop(context);
                 },
               ),
             ],

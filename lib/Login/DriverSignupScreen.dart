@@ -1,496 +1,303 @@
-/// ===============================================
-/// FILE:
-/// screens/driver_signup_screen.dart
-/// ===============================================
-
-import 'package:drivaer_logixapp/widget/AuthButton.dart';
-import 'package:drivaer_logixapp/widget/AuthTextField.dart';
+import 'package:drivaer_logixapp/Login/DriverLoginScreen.dart';
+import 'package:drivaer_logixapp/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:drivaer_logixapp/theme/app_colors.dart';
 
-import '../Login/DriverLoginScreen.dart';
-
-class DriverSignupScreen extends StatefulWidget {
+class DriverSignupScreen extends StatelessWidget {
   const DriverSignupScreen({super.key});
-
-  @override
-  State<DriverSignupScreen> createState() => _DriverSignupScreenState();
-}
-
-class _DriverSignupScreenState extends State<DriverSignupScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-
-  late Animation<double> fadeAnimation;
-
-  late Animation<Offset> slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
-
-    /// FADE
-    fadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
-
-    /// SLIDE
-    slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.15),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeOutCubic));
-
-    controller.forward();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: const Color(0xffF7F4F5),
 
       body: SafeArea(
-        child: FadeTransition(
-          opacity: fadeAnimation,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
 
-          child: SlideTransition(
-            position: slideAnimation,
+          child: Column(
+            children: [
+              /// TOP IMAGE
+              SizedBox(
+                height: 340,
+                width: double.infinity,
 
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  /// =================================
-                  /// TOP SECTION
-                  /// =================================
-                  Container(
-                    width: double.infinity,
+                child: Image.asset(
+                  "assets/screen/signup.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
 
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
+              /// WHITE CONTAINER
+              Container(
+                width: double.infinity,
 
-                        end: Alignment.bottomRight,
+                decoration: BoxDecoration(
+                  color: Colors.white,
 
-                        colors: [
-                          Color(0xffFFF4C7),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(38),
+                    topRight: Radius.circular(38),
+                  ),
 
-                          Color(0xffFFE082),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 20,
+                      offset: const Offset(0, -4),
+                    ),
+                  ],
+                ),
 
-                          Color(0xffFFF8DD),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 34, 28, 34),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// TITLE
+                      Text(
+                        "Create Your\nDriver Account",
+
+                        style: GoogleFonts.poppins(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w800,
+                          height: 1.2,
+                          color: const Color(0xff111111),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      /// SUBTITLE
+                      Text(
+                        "Join DriverX and start your journey with smart driving opportunities.",
+
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          color: const Color(0xff8F8F8F),
+                          fontWeight: FontWeight.w400,
+                          height: 1.5,
+                        ),
+                      ),
+
+                      const SizedBox(height: 28),
+
+                      /// FULL NAME
+                      _buildLabel("Full Name"),
+
+                      const SizedBox(height: 8),
+
+                      _buildField(hint: "Enter your full name"),
+
+                      const SizedBox(height: 18),
+
+                      /// MOBILE NUMBER
+                      _buildLabel("Mobile Number"),
+
+                      const SizedBox(height: 8),
+
+                      _buildField(
+                        hint: "Enter 10-digit number",
+                        keyboardType: TextInputType.phone,
+                      ),
+
+                      const SizedBox(height: 18),
+
+                      /// PASSWORD
+                      _buildLabel("Password"),
+
+                      const SizedBox(height: 8),
+
+                      _buildField(hint: "Enter password", obscureText: true),
+
+                      const SizedBox(height: 18),
+
+                      /// TERMS
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.check_circle_rounded,
+                            color: AppColors.yellow2,
+                            size: 20,
+                          ),
+
+                          const SizedBox(width: 10),
+
+                          Expanded(
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const DriverLoginScreen(),
+                                    ),
+                                  );
+                                },
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: "By continuing you agree to our ",
+
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      color: const Color(0xff8F8F8F),
+                                      height: 1.5,
+                                    ),
+
+                                    children: [
+                                      TextSpan(
+                                        text: "Terms & Conditions",
+
+                                        style: GoogleFonts.poppins(
+                                          color: AppColors.yellow2,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
 
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
+                      const SizedBox(height: 28),
 
-                        bottomRight: Radius.circular(40),
+                      /// BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DriverLoginScreen(),
+                            ),
+                          );
+                        },
+
+                        child: Container(
+                          height: 62,
+                          width: double.infinity,
+
+                          decoration: BoxDecoration(
+                            color: AppColors.yellow2,
+
+                            borderRadius: BorderRadius.circular(20),
+
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.yellow2.withOpacity(0.35),
+                                blurRadius: 14,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+
+                          alignment: Alignment.center,
+
+                          child: Text(
+                            "Create Account",
+
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
 
-                    child: Stack(
-                      children: [
-                        /// BG CIRCLE
-                        Positioned(
-                          top: -50,
-                          right: -50,
+                      const SizedBox(height: 22),
 
-                          child: Container(
-                            width: 180,
-                            height: 180,
+                      /// SIGN IN
+                      Center(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Already have an account? ",
 
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-
-                              color: Colors.white.withOpacity(0.15),
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              color: const Color(0xff8F8F8F),
+                              fontWeight: FontWeight.w500,
                             ),
-                          ),
-                        ),
 
-                        Positioned(
-                          top: 90,
-                          left: -30,
-
-                          child: Container(
-                            width: 120,
-                            height: 120,
-
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-
-                              color: Colors.white.withOpacity(0.12),
-                            ),
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 24,
-                            right: 24,
-                            top: 20,
-                            bottom: 30,
-                          ),
-
-                          child: Column(
                             children: [
-                              /// APPBAR
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-
-                                    child: Container(
-                                      width: 48,
-                                      height: 48,
-
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-
-                                      child: const Icon(
-                                        Icons.arrow_back_ios_new_rounded,
-                                      ),
-                                    ),
-                                  ),
-
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 14,
-                                      vertical: 10,
-                                    ),
-
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.85),
-
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.verified_user_rounded,
-
-                                          color: Color(0xffF7B500),
-
-                                          size: 18,
-                                        ),
-
-                                        const SizedBox(width: 6),
-
-                                        Text(
-                                          "DriverX",
-
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w700,
-
-                                            fontSize: 13,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              /// IMAGE
-                              Hero(
-                                tag: "signup_image",
-
-                                child: Image.asset(
-                                  "assets/screen/signup.png",
-
-                                  height: 310,
-
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              /// TITLE
-                              Text(
-                                "Create Driver Account",
-
-                                textAlign: TextAlign.center,
+                              TextSpan(
+                                text: "Sign In",
 
                                 style: GoogleFonts.poppins(
-                                  fontSize: 30,
-
+                                  color: AppColors.yellow2,
                                   fontWeight: FontWeight.w700,
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              /// SUBTITLE
-                              Text(
-                                "Join DriverX and start earning\nwith smart deliveries.",
-
-                                textAlign: TextAlign.center,
-
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-
-                                  height: 1.7,
-
-                                  color: Colors.grey.shade700,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-
-                  /// =================================
-                  /// FORM SECTION
-                  /// =================================
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-
-                    child: Column(
-                      children: [
-                        const AuthTextField(
-                          hint: "Full Name",
-
-                          icon: Icons.person_outline_rounded,
-                        ),
-
-                        const AuthTextField(
-                          hint: "Phone Number",
-
-                          icon: Icons.call_outlined,
-                        ),
-
-                        const AuthTextField(
-                          hint: "Email Address",
-
-                          icon: Icons.email_outlined,
-                        ),
-
-                        const AuthTextField(
-                          hint: "Password",
-
-                          icon: Icons.lock_outline_rounded,
-
-                          isPassword: true,
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        /// TERMS
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-
-                          children: [
-                            const Icon(
-                              Icons.check_circle_rounded,
-
-                              color: Color(0xffF7B500),
-
-                              size: 22,
-                            ),
-
-                            const SizedBox(width: 10),
-
-                            Expanded(
-                              child: RichText(
-                                text: TextSpan(
-                                  text: "By continuing you agree to our ",
-
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 13,
-
-                                    height: 1.6,
-
-                                    color: Colors.grey.shade600,
-                                  ),
-
-                                  children: [
-                                    TextSpan(
-                                      text: "Terms & Conditions",
-
-                                      style: GoogleFonts.poppins(
-                                        color: const Color(0xffF7B500),
-
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 28),
-
-                        /// BUTTON
-                        AuthButton(
-                          title: "Create Account",
-
-                          onTap: () {
-                            Navigator.push(
-                              context,
-
-                              MaterialPageRoute(
-                                builder: (_) => const DriverLoginScreen(),
-                              ),
-                            );
-                          },
-                        ),
-
-                        const SizedBox(height: 28),
-
-                        /// DIVIDER
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Divider(color: Colors.grey.shade300),
-                            ),
-
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                              ),
-
-                              child: Text(
-                                "Or continue with",
-
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13,
-
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                            ),
-
-                            Expanded(
-                              child: Divider(color: Colors.grey.shade300),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        /// SOCIAL
-                        Row(
-                          children: [
-                            socialButton(
-                              icon: Icons.g_mobiledata_rounded,
-
-                              title: "Google",
-                            ),
-
-                            const SizedBox(width: 16),
-
-                            socialButton(
-                              icon: Icons.apple_rounded,
-
-                              title: "Apple",
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 30),
-
-                        /// LOGIN
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-
-                              MaterialPageRoute(
-                                builder: (_) => const DriverLoginScreen(),
-                              ),
-                            );
-                          },
-
-                          child: RichText(
-                            text: TextSpan(
-                              text: "Already have an account? ",
-
-                              style: GoogleFonts.poppins(color: Colors.grey),
-
-                              children: [
-                                TextSpan(
-                                  text: "Login",
-
-                                  style: GoogleFonts.poppins(
-                                    color: const Color(0xffF7B500),
-
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  /// =================================
-  /// SOCIAL BUTTON
-  /// =================================
-  Widget socialButton({required IconData icon, required String title}) {
-    return Expanded(
-      child: Container(
-        height: 58,
+  /// LABEL
+  static Widget _buildLabel(String text) {
+    return Text(
+      text,
 
-        decoration: BoxDecoration(
-          color: Colors.white,
+      style: GoogleFonts.poppins(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: const Color(0xff1C1C1C),
+      ),
+    );
+  }
 
-          borderRadius: BorderRadius.circular(18),
+  /// TEXTFIELD
+  static Widget _buildField({
+    required String hint,
+    bool obscureText = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Container(
+      height: 66,
 
-          boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 10),
-          ],
+      decoration: BoxDecoration(
+        color: const Color(0xffF4F4F4),
+        borderRadius: BorderRadius.circular(18),
+      ),
+
+      child: TextField(
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
         ),
 
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        decoration: InputDecoration(
+          border: InputBorder.none,
 
-          children: [
-            Icon(icon, size: 30),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 22,
+            vertical: 20,
+          ),
 
-            const SizedBox(width: 8),
+          hintText: hint,
 
-            Text(
-              title,
-
-              style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
-            ),
-          ],
+          hintStyle: GoogleFonts.poppins(
+            fontSize: 15,
+            color: const Color(0xffA0A0A0),
+          ),
         ),
       ),
     );

@@ -1,234 +1,517 @@
+import 'package:drivaer_logixapp/widget/custom_bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/trip_data.dart';
-import '../theme/app_colors.dart';
-import '../widget/driver_bottom_nav.dart';
-
-
-class DriverDashboardScreen extends StatelessWidget {
+class DriverDashboardScreen extends StatefulWidget {
   const DriverDashboardScreen({super.key});
-   
+
+  @override
+  State<DriverDashboardScreen> createState() => _DriverDashboardScreenState();
+}
+
+class _DriverDashboardScreenState extends State<DriverDashboardScreen> {
+  bool isOnline = true;
+
+  final List<Map<String, dynamic>> trips = [
+    {
+      "from": "Andheri",
+      "to": "Bandra",
+      "amount": "₹450",
+      "distance": "12 KM",
+      "time": "28 min",
+      "status": "Completed",
+    },
+    {
+      "from": "Virar",
+      "to": "Borivali",
+      "amount": "₹820",
+      "distance": "34 KM",
+      "time": "52 min",
+      "status": "Completed",
+    },
+    {
+      "from": "Dadar",
+      "to": "Powai",
+      "amount": "₹620",
+      "distance": "20 KM",
+      "time": "36 min",
+      "status": "Completed",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bg,
+      backgroundColor: const Color(0xffFFFBF0),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xffF7B500),
+
+        elevation: 3,
+
+        onPressed: () {},
+
+        child: const Icon(Icons.navigation_rounded, color: Colors.black),
+      ),
+
+      bottomNavigationBar: CustomBottomBar(
+        currentIndex: 0,
+        onItemTapped: (index) {},
+      ),
+
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 16,
-          ),
+          physics: const BouncingScrollPhysics(),
+
+          padding: const EdgeInsets.fromLTRB(18, 18, 18, 120),
 
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
+              /// TOP HEADER
+              Container(
+                padding: const EdgeInsets.all(18),
 
-              const SizedBox(height: 30),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xffFFD84D), Color(0xffF7B500)],
 
-              topSection(),
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
 
-              const SizedBox(height: 32),
+                  borderRadius: BorderRadius.circular(26),
+                ),
 
-              overviewCard(),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        /// PROFILE IMAGE
+                        Container(
+                          width: 56,
+                          height: 56,
 
-              const SizedBox(height: 30),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
 
-              Text(
-                "Today's Trips",
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+
+                          child: const Icon(
+                            Icons.person_rounded,
+                            size: 30,
+                            color: Color(0xff1A1A1A),
+                          ),
+                        ),
+
+                        const SizedBox(width: 14),
+
+                        /// USER INFO
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Text(
+                                "Good Morning 👋",
+
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  color: Colors.black54,
+                                ),
+                              ),
+
+                              const SizedBox(height: 2),
+
+                              Text(
+                                "John Driver",
+
+                                style: GoogleFonts.poppins(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xff1A1A1A),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        /// NOTIFICATION
+                        Container(
+                          width: 48,
+                          height: 48,
+
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.22),
+
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+
+                          child: const Icon(
+                            Icons.notifications_none_rounded,
+                            color: Color(0xff1A1A1A),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    /// ONLINE STATUS
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
+                      ),
+
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.18),
+
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+
+                      child: Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+
+                            width: 12,
+                            height: 12,
+
+                            decoration: BoxDecoration(
+                              color: isOnline ? Colors.green : Colors.red,
+
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+
+                          const SizedBox(width: 10),
+
+                          Text(
+                            isOnline ? "You're Online" : "You're Offline",
+
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xff1A1A1A),
+                            ),
+                          ),
+
+                          const Spacer(),
+
+                          Switch(
+                            value: isOnline,
+
+                            activeColor: const Color(0xff1A1A1A),
+
+                            onChanged: (value) {
+                              setState(() {
+                                isOnline = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
 
-              const SizedBox(height: 18),
+              const SizedBox(height: 24),
 
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: trips.length,
+              /// EARNINGS CARD
+              Container(
+                padding: const EdgeInsets.all(20),
 
-                itemBuilder: (context, index) {
+                decoration: BoxDecoration(
+                  color: Colors.white,
 
-                  final trip = trips[index];
+                  borderRadius: BorderRadius.circular(24),
 
-                  return tripCard(
-                    from: trip["from"]?.toString() ?? "",
-                    to: trip["to"]?.toString() ?? "",
-                    amount: trip["amount"]?.toString() ?? "",
-                    distance: trip["distance"]?.toString() ?? "",
-                    time: trip["time"]?.toString() ?? "",
-                  );
-                },
-              )
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.04),
 
-             
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar:
-          const DriverBottomNav(
-        currentIndex: 0,
-      ),
-    );
-  }
+                      blurRadius: 10,
 
-  Widget topSection() {
-    return Row(
-      children: [
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
 
-        Expanded(
-          child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
-            children: [
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: 48,
+                          height: 48,
 
+                          decoration: BoxDecoration(
+                            color: const Color(0xffFFF4CC),
+
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+
+                          child: const Icon(
+                            Icons.wallet_rounded,
+                            color: Color(0xffF7B500),
+                          ),
+                        ),
+
+                        const SizedBox(width: 14),
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                          children: [
+                            Text(
+                              "Today's Earnings",
+
+                              style: GoogleFonts.poppins(
+                                fontSize: 13,
+                                color: Colors.grey,
+                              ),
+                            ),
+
+                            const SizedBox(height: 4),
+
+                            Text(
+                              "₹ 2,450",
+
+                              style: GoogleFonts.poppins(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w800,
+
+                                color: const Color(0xff1A1A1A),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    Row(
+                      children: [
+                        _statsCard("4", "Trips", Icons.route_rounded),
+
+                        const SizedBox(width: 12),
+
+                        _statsCard("320", "KM", Icons.map_rounded),
+
+                        const SizedBox(width: 12),
+
+                        _statsCard("4.8", "Rating", Icons.star_rounded),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              /// QUICK ACTIONS TITLE
               Text(
-                "Good Morning 🌞",
+                "Quick Actions",
+
                 style: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  fontSize: 18,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xff1A1A1A),
                 ),
               ),
 
               const SizedBox(height: 4),
 
               Text(
-                "John Driver 👋",
-                style: GoogleFonts.poppins(
-                  fontSize: 24,
-                  fontWeight:
-                      FontWeight.w700,
-                ),
+                "Manage your rides and account",
+
+                style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey),
+              ),
+
+              const SizedBox(height: 18),
+
+              /// ACTIONS
+              Row(
+                children: [
+                  Expanded(
+                    child: _actionCard(Icons.history_rounded, "Ride History"),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  Expanded(
+                    child: _actionCard(Icons.payments_rounded, "Earnings"),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: _actionCard(Icons.support_agent_rounded, "Support"),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  Expanded(
+                    child: _actionCard(Icons.settings_rounded, "Settings"),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 24),
+
+              /// TODAY'S TRIPS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+                  Text(
+                    "Today's Trips",
+
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+
+                  Text(
+                    "See All",
+
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xffF7B500),
+
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 18),
+
+              /// TRIPS
+              ListView.builder(
+                shrinkWrap: true,
+
+                physics: const NeverScrollableScrollPhysics(),
+
+                itemCount: trips.length,
+
+                itemBuilder: (context, index) {
+                  final trip = trips[index];
+
+                  return _tripCard(
+                    from: trip["from"],
+                    to: trip["to"],
+                    amount: trip["amount"],
+                    distance: trip["distance"],
+                    time: trip["time"],
+                    status: trip["status"],
+                  );
+                },
               ),
             ],
           ),
         ),
-
-        CircleAvatar(
-          radius: 30,
-          backgroundColor:
-              Colors.grey.shade300,
-
-          child: const Icon(
-            Icons.person,
-            color: Colors.deepPurple,
-            size: 32,
-          ),
-        )
-      ],
+      ),
     );
   }
 
-  Widget overviewCard() {
+  /// STATS CARD
+  Widget _statsCard(String value, String title, IconData icon) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+
+        decoration: BoxDecoration(
+          color: const Color(0xffFFF8E1),
+
+          borderRadius: BorderRadius.circular(18),
+        ),
+
+        child: Column(
+          children: [
+            Icon(icon, color: const Color(0xffF7B500)),
+
+            const SizedBox(height: 8),
+
+            Text(
+              value,
+
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+
+            const SizedBox(height: 4),
+
+            Text(
+              title,
+
+              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// ACTION CARD
+  Widget _actionCard(IconData icon, String title) {
     return Container(
-      padding:
-          const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(18),
 
       decoration: BoxDecoration(
         color: Colors.white,
 
-        borderRadius:
-            BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(22),
 
         boxShadow: [
           BoxShadow(
-            blurRadius: 15,
-            color: Colors.black
-                .withOpacity(.03),
-          )
+            color: Colors.black.withOpacity(0.03),
+
+            blurRadius: 10,
+
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
 
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
-
         children: [
+          Container(
+            width: 54,
+            height: 54,
 
-          Text(
-            "Today's Overview",
+            decoration: BoxDecoration(
+              color: const Color(0xffFFF4CC),
 
-            style:
-                GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight:
-                  FontWeight.w700,
+              borderRadius: BorderRadius.circular(16),
             ),
+
+            child: Icon(icon, color: const Color(0xffF7B500)),
           ),
 
-          const SizedBox(height: 20),
-
-          Row(
-            children: [
-
-              overviewItem(
-                  "4",
-                  "Trips"),
-
-              divider(),
-
-              overviewItem(
-                  "320",
-                  "KM"),
-
-              divider(),
-
-              overviewItem(
-                  "₹2450",
-                  "Earn"),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget divider() {
-    return Container(
-      width: 1,
-      height: 60,
-      color: Colors.grey.shade300,
-    );
-  }
-
-  Widget overviewItem(
-      String value,
-      String title) {
-    return Expanded(
-      child: Column(
-        children: [
-
-          Text(
-            value,
-
-            style:
-                GoogleFonts.poppins(
-              fontSize: 22,
-              fontWeight:
-                  FontWeight.w700,
-            ),
-          ),
-
-          const SizedBox(height: 6),
+          const SizedBox(height: 12),
 
           Text(
             title,
 
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
 
-            style:
-                GoogleFonts.poppins(
+            style: GoogleFonts.poppins(
               fontSize: 13,
-              color:
-                  Colors.grey,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -236,107 +519,123 @@ class DriverDashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget tripCard({
+  /// TRIP CARD
+  Widget _tripCard({
     required String from,
     required String to,
     required String amount,
     required String distance,
     required String time,
+    required String status,
   }) {
-    return GestureDetector(
-      onTap: () {},
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
 
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 15),
-        padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(18),
 
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 12,
-              color: Colors.black.withOpacity(.03),
-            )
-          ],
-        ),
+      decoration: BoxDecoration(
+        color: Colors.white,
 
-        child: Column(
-          children: [
+        borderRadius: BorderRadius.circular(22),
 
-            Row(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+
+            blurRadius: 10,
+
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+
+            decoration: BoxDecoration(
+              color: const Color(0xffFFF4CC),
+
+              borderRadius: BorderRadius.circular(16),
+            ),
+
+            child: const Icon(
+              Icons.location_on_rounded,
+              color: Color(0xffF7B500),
+            ),
+          ),
+
+          const SizedBox(width: 14),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
-
-                const Icon(
-                  Icons.location_on,
-                  color: AppColors.yellow2,
-                  size: 18,
-                ),
-
-                const SizedBox(width: 8),
-
-                Expanded(
-                  child: Text(
-                    "$from → $to",
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-
                 Text(
-                  amount,
+                  "$from → $to",
+
                   style: GoogleFonts.poppins(
-                    color: Colors.green,
-                    fontSize: 18,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+
+                const SizedBox(height: 4),
+
+                Text(
+                  "$distance • $time",
+
+                  style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+                ),
               ],
             ),
+          ),
 
-            const SizedBox(height: 14),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
 
-            Row(
-              children: [
+            children: [
+              Text(
+                amount,
 
-                Icon(
-                  Icons.route,
-                  color: Colors.grey.shade600,
-                  size: 16,
+                style: GoogleFonts.poppins(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+
+                  color: Colors.green,
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
                 ),
 
-                const SizedBox(width: 6),
+                decoration: BoxDecoration(
+                  color: const Color(0xffE8F5E9),
 
-                Text(
-                  distance,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+
+                child: Text(
+                  status,
+
                   style: GoogleFonts.poppins(
-                    fontSize: 13,
+                    color: Colors.green,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-
-                const Spacer(),
-
-                Icon(
-                  Icons.access_time,
-                  color: Colors.grey.shade600,
-                  size: 16,
-                ),
-
-                const SizedBox(width: 6),
-
-                Text(
-                  time,
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

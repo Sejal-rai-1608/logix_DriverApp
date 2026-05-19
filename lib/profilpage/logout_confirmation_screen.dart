@@ -15,17 +15,13 @@ class LogoutConfirmationScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-
             /// LEFT TRUCK BG
             Positioned(
               left: -15,
               top: 160,
               child: Opacity(
                 opacity: .08,
-                child: Image.asset(
-                  "assets/screen/truck.png",
-                  width: 200,
-                ),
+                child: Image.asset("assets/screen/signup.png", width: 200),
               ),
             ),
 
@@ -37,7 +33,6 @@ class LogoutConfirmationScreen extends StatelessWidget {
                 opacity: .08,
                 child: Column(
                   children: [
-
                     Icon(
                       Icons.location_on,
                       size: 38,
@@ -65,14 +60,10 @@ class LogoutConfirmationScreen extends StatelessWidget {
             ),
 
             SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 18,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
 
               child: Column(
                 children: [
-
                   const SizedBox(height: 50),
 
                   /// MAIN ICON
@@ -88,14 +79,13 @@ class LogoutConfirmationScreen extends StatelessWidget {
                         BoxShadow(
                           blurRadius: 18,
                           color: Colors.amber.withOpacity(.15),
-                        )
+                        ),
                       ],
                     ),
 
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-
                         Icon(
                           Icons.person_outline,
                           size: 70,
@@ -118,7 +108,7 @@ class LogoutConfirmationScreen extends StatelessWidget {
                                 BoxShadow(
                                   blurRadius: 12,
                                   color: Colors.black.withOpacity(.08),
-                                )
+                                ),
                               ],
                             ),
 
@@ -128,7 +118,7 @@ class LogoutConfirmationScreen extends StatelessWidget {
                               color: Colors.amber.shade700,
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -162,13 +152,11 @@ class LogoutConfirmationScreen extends StatelessWidget {
                   /// LOGOUT BUTTON
                   InkWell(
                     onTap: () {
-
                       Navigator.pushAndRemoveUntil(
                         context,
 
                         MaterialPageRoute(
-                          builder: (_) =>
-                              const DriverLoginScreen(),
+                          builder: (_) => const DriverLoginScreen(),
                         ),
 
                         (route) => false,
@@ -179,51 +167,41 @@ class LogoutConfirmationScreen extends StatelessWidget {
                       height: 56,
 
                       decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(24),
 
-                        gradient:
-                        const LinearGradient(
-                          colors: [
-                            Color(0xffFFD94D),
-                            Color(0xffFFC400),
-                          ],
+                        gradient: const LinearGradient(
+                          colors: [Color(0xffFFD94D), Color(0xffFFC400)],
                         ),
 
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 15,
-                            color: Colors.amber
-                                .withOpacity(.30),
-                          )
+                            color: Colors.amber.withOpacity(.30),
+                          ),
                         ],
                       ),
 
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
 
                         children: [
-
                           const Icon(
                             Icons.logout,
                             size: 22,
                             color: Colors.white,
                           ),
 
-                          const SizedBox(width:10),
+                          const SizedBox(width: 10),
 
                           Text(
                             "Yes, Logout",
 
-                            style:
-                            GoogleFonts.poppins(
+                            style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontSize: 20,
-                              fontWeight:
-                              FontWeight.w700,
+                              fontWeight: FontWeight.w700,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -233,36 +211,27 @@ class LogoutConfirmationScreen extends StatelessWidget {
 
                   /// CANCEL
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
 
                     child: Container(
-                      height:56,
+                      height: 56,
 
-                      decoration:
-                      BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(
-                            24),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
 
-                        border: Border.all(
-                          color:
-                          Colors.grey.shade300,
-                        ),
+                        border: Border.all(color: Colors.grey.shade300),
                       ),
 
                       child: Center(
                         child: Text(
                           "Cancel",
 
-                          style:
-                          GoogleFonts.poppins(
-                            fontSize:20,
-                            fontWeight:
-                            FontWeight.w600,
-                            color:
-                            Colors.grey.shade700,
+                          style: GoogleFonts.poppins(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ),
